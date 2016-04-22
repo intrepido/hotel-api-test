@@ -14,6 +14,7 @@ class HotelApiServiceProvider extends ServiceProvider
     protected $defer = false;
 
 
+
     /**
      * Boot the service provider.
      */
