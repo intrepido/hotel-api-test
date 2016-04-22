@@ -22,6 +22,8 @@ class HotelApiServiceProvider extends ServiceProvider
             __DIR__.'/../Config/config.php' => config_path('hotel.php'),
         ], 'config');
 
+
+
         $this->publishes([
             __DIR__.'/../Database/migrations/' => database_path('migrations')
         ], 'migrations');
