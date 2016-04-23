@@ -14,7 +14,7 @@ class CreateGuestRoomInfosTable extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(database_path().'/scripts/guest_room_infos.sql'));
+        DB::connection(env('API_CONNECTION_DRIVER'))->unprepared(file_get_contents(database_path().'/scripts/guest_room_infos.sql'));
     }
 
     /**
@@ -24,6 +24,6 @@ class CreateGuestRoomInfosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('guest_room_infos');
+        Schema::connection(env('API_CONNECTION_DRIVER'))->drop('guest_room_infos');
     }
 }

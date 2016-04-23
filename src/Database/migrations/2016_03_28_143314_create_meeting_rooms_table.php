@@ -14,7 +14,7 @@ class CreateMeetingRoomsTable extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(database_path().'/scripts/meeting_rooms.sql'));
+        DB::connection(env('API_CONNECTION_DRIVER'))->unprepared(file_get_contents(database_path().'/scripts/meeting_rooms.sql'));
     }
 
     /**
@@ -24,6 +24,6 @@ class CreateMeetingRoomsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('meeting_rooms');
+        Schema::connection(env('API_CONNECTION_DRIVER'))->drop('meeting_rooms');
     }
 }

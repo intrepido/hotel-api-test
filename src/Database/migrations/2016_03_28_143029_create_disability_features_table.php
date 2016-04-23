@@ -14,7 +14,7 @@ class CreateDisabilityFeaturesTable extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(database_path().'/scripts/disability_features.sql'));
+        DB::connection(env('API_CONNECTION_DRIVER'))->unprepared(file_get_contents(database_path().'/scripts/disability_features.sql'));
     }
 
     /**
@@ -24,6 +24,6 @@ class CreateDisabilityFeaturesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('disability_features');
+        Schema::connection(env('API_CONNECTION_DRIVER'))->drop('disability_features');
     }
 }

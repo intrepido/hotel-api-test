@@ -14,7 +14,7 @@ class CreatePictureCategoriesTable extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(database_path().'/scripts/picture_categories.sql'));
+        DB::connection(env('API_CONNECTION_DRIVER'))->unprepared(file_get_contents(database_path().'/scripts/picture_categories.sql'));
     }
 
     /**
@@ -24,6 +24,6 @@ class CreatePictureCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('picture_categories');
+        Schema::connection(env('API_CONNECTION_DRIVER'))->drop('picture_categories');
     }
 }

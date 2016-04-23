@@ -14,7 +14,7 @@ class CreateCitiesTable extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(database_path().'/scripts/cities.sql'));
+        DB::connection(env('API_CONNECTION_DRIVER'))->unprepared(file_get_contents(database_path().'/scripts/cities.sql'));
     }
 
     /**
@@ -24,6 +24,6 @@ class CreateCitiesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('cities');
+        Schema::connection(env('API_CONNECTION_DRIVER'))->drop('cities');
     }
 }

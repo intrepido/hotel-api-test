@@ -14,7 +14,7 @@ class CreateBusinessServicesTable extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(database_path().'/scripts/business_services.sql'));
+        DB::connection(env('API_CONNECTION_DRIVER'))->unprepared(file_get_contents(database_path().'/scripts/business_services.sql'));
     }
 
     /**
@@ -24,6 +24,6 @@ class CreateBusinessServicesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('business_services');
+        Schema::connection(env('API_CONNECTION_DRIVER'))->drop('business_services');
     }
 }

@@ -12,7 +12,7 @@ class CreateRecreationServicesTable extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(database_path().'/scripts/recreation_services.sql'));
+        DB::connection(env('API_CONNECTION_DRIVER'))->unprepared(file_get_contents(database_path().'/scripts/recreation_services.sql'));
     }
 
     /**
@@ -22,6 +22,6 @@ class CreateRecreationServicesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('recreation_services');
+        Schema::connection(env('API_CONNECTION_DRIVER'))->drop('recreation_services');
     }
 }

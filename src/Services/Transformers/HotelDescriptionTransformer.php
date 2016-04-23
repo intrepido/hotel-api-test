@@ -45,7 +45,7 @@ class HotelDescriptionTransformer extends TransformerAbstract
             $locationCategoryTemp = $descriptionItem['HotelInfo']['CategoryCodes']['LocationCategory'];
             !isset($locationCategoryTemp[0]) ? $locationCategoryTemp = [$locationCategoryTemp] : null;
             foreach ($locationCategoryTemp as $key => $locationCategoryCode) {
-                array_push($locationCategory, LocationCategory::where('location_category_code', $locationCategoryCode['attr']['Code'])->first()['location_category_name']);
+                array_push($locationCategory, LocationCategory::connection(env('API_CONNECTION_DRIVER'))->where('location_category_code', $locationCategoryCode['attr']['Code'])->first()['location_category_name']);
             }
         }
 
@@ -53,7 +53,7 @@ class HotelDescriptionTransformer extends TransformerAbstract
         $segmentCategory = [];
         if (isset($descriptionItem['HotelInfo']['CategoryCodes']['SegmentCategory'])) {
             $segmentCategoryTemp = $descriptionItem['HotelInfo']['CategoryCodes']['SegmentCategory']['attr']['Code'];
-            $segmentCategory = SegmentCategory::where('segment_category_code', $segmentCategoryTemp)->first()["segment_category_name"];
+            $segmentCategory = SegmentCategory::connection(env('API_CONNECTION_DRIVER'))->where('segment_category_code', $segmentCategoryTemp)->first()["segment_category_name"];
         }
 
         //Contact Infos
@@ -88,7 +88,7 @@ class HotelDescriptionTransformer extends TransformerAbstract
                             'address_line' => ucwords(strtolower($addressLineComplete)), //Address Line
                             'city_name' => ucwords(strtolower($addressTemp['CityName']['value'])), //City Name
                             'postal_code' => isset($addressTemp['PostalCode']['value']) ? $addressTemp['PostalCode']['value'] : '', //Postal Code
-                            'country_name' => Country::where('country_code', $addressTemp['CountryName']['attr']['Code'])->first()["country_name"]); //Country Name
+                            'country_name' => Country::connection(env('API_CONNECTION_DRIVER'))->where('country_code', $addressTemp['CountryName']['attr']['Code'])->first()["country_name"]); //Country Name
                     }
                     //Contact numbers
                     if (isset($description['Phones']['Phone'])) {
@@ -96,7 +96,7 @@ class HotelDescriptionTransformer extends TransformerAbstract
                         $contactInfos = $contactInfos + array('contact_numbers' => array());
                         !isset($phoneNumbers[0]) ? $phoneNumbers = [$phoneNumbers] : null;
                         foreach ($phoneNumbers as $key => $phoneNumber) {
-                            $contactInfos['contact_numbers'] = $contactInfos['contact_numbers'] + array(PhoneTechType::where('phone_tech_code', $phoneNumber['attr']['PhoneTechType'])->first()["phone_tech_name"] => str_replace('+','',str_replace(' ','-', str_replace('/','-',trim($phoneNumber['attr']['PhoneNumber'])))));
+                            $contactInfos['contact_numbers'] = $contactInfos['contact_numbers'] + array(PhoneTechType::connection(env('API_CONNECTION_DRIVER'))->where('phone_tech_code', $phoneNumber['attr']['PhoneTechType'])->first()["phone_tech_name"] => str_replace('+','',str_replace(' ','-', str_replace('/','-',trim($phoneNumber['attr']['PhoneNumber'])))));
                         }
                     }
                     //Emails
@@ -176,14 +176,14 @@ class HotelDescriptionTransformer extends TransformerAbstract
             !isset($servicesList[0]) ? $servicesList = [$servicesList] : null;
             foreach ($servicesList as $key => $service) {
                 if (isset($service['attr'])) {
-                    isset($service['attr']['BusinessServiceCode']) ? array_push($generalServices, BusinessService::where('service_code', $service['attr']['BusinessServiceCode'])->first()["service_name"]) : null;
-                    isset($service['attr']['Code']) ? array_push($hotelAmenities, Amenity::where('amenity_code', $service['attr']['Code'])->first()["amenity_name"]) : null;
+                    isset($service['attr']['BusinessServiceCode']) ? array_push($generalServices, BusinessService::connection(env('API_CONNECTION_DRIVER'))->where('service_code', $service['attr']['BusinessServiceCode'])->first()["service_name"]) : null;
+                    isset($service['attr']['Code']) ? array_push($hotelAmenities, Amenity::connection(env('API_CONNECTION_DRIVER'))->where('amenity_code', $service['attr']['Code'])->first()["amenity_name"]) : null;
                 }
                 if (isset($service['Features']['Feature'])) {
                     !isset($service['Features']['Feature'][0]) ? $service['Features']['Feature'] = [$service['Features']['Feature']] : null;
                     foreach ($service['Features']['Feature'] as $accessibleService) {
-                        isset($accessibleService['attr']['AccessibleCode']) ? array_push($accessibleServices, DisabilityFeature::where('disability_feature_code', $accessibleService['attr']['AccessibleCode'])->first()["disability_feature_name"]) : null;
-                        isset($accessibleService['attr']['SecurityCode']) ? array_push($securityServices, SecurityFeature::where('security_feature_code', $accessibleService['attr']['SecurityCode'])->first()["security_feature_name"]) : null;
+                        isset($accessibleService['attr']['AccessibleCode']) ? array_push($accessibleServices, DisabilityFeature::connection(env('API_CONNECTION_DRIVER'))->where('disability_feature_code', $accessibleService['attr']['AccessibleCode'])->first()["disability_feature_name"]) : null;
+                        isset($accessibleService['attr']['SecurityCode']) ? array_push($securityServices, SecurityFeature::connection(env('API_CONNECTION_DRIVER'))->where('security_feature_code', $accessibleService['attr']['SecurityCode'])->first()["security_feature_name"]) : null;
                     }
                 }
                 //If the services has images then add them to $imagesHotel
@@ -199,7 +199,7 @@ class HotelDescriptionTransformer extends TransformerAbstract
             $recreationList = $descriptionItem['AreaInfo']['Recreations']['Recreation'];
             !isset($recreationList[0]) ? $recreationList = [$recreationList] : null;
             foreach ($recreationList as $key => $recreation) {
-                isset($recreation['attr']['Code']) ? array_push($recreations, RecreationService::where('recreation_service_code', $recreation['attr']['Code'])->first()["recreation_service_name"]) : null;
+                isset($recreation['attr']['Code']) ? array_push($recreations, RecreationService::connection(env('API_CONNECTION_DRIVER'))->where('recreation_service_code', $recreation['attr']['Code'])->first()["recreation_service_name"]) : null;
                 //If the recreation has images then add them to $imagesHotel
                 if (isset($recreation['MultimediaDescriptions']['MultimediaDescription'])) {
                     $this->extractBiggerSizeImageFormat($recreation['MultimediaDescriptions']['MultimediaDescription'], $imagesHotel);
@@ -213,7 +213,7 @@ class HotelDescriptionTransformer extends TransformerAbstract
             $amenitiesList = $descriptionItem['FacilityInfo']['GuestRooms']['GuestRoom']['Amenities']['Amenity'];
             !isset($amenitiesList[0]) ? $amenitiesList = [$amenitiesList] : null;
             foreach ($amenitiesList as $key => $amenity) {
-                array_push($roomAmenities, RoomAmenity::where('room_amenity_code', $amenity['attr']['RoomAmenityCode'])->first()["room_amenity_name"]);
+                array_push($roomAmenities, RoomAmenity::connection(env('API_CONNECTION_DRIVER'))->where('room_amenity_code', $amenity['attr']['RoomAmenityCode'])->first()["room_amenity_name"]);
             }
         }
 
@@ -223,7 +223,7 @@ class HotelDescriptionTransformer extends TransformerAbstract
             $guestRoomInfos = $descriptionItem['HotelInfo']['CategoryCodes']['GuestRoomInfo'];
             !isset($guestRoomInfos[0]) ? $guestRoomInfos = [$guestRoomInfos] : null;
             foreach ($guestRoomInfos as $key => $guestRoomInfo) {
-                $guestRoomName = GuestRoomInfo::where('guest_room_info_code', $guestRoomInfo['attr']['Code'])->first()["guest_room_info_name"];
+                $guestRoomName = GuestRoomInfo::connection(env('API_CONNECTION_DRIVER'))->where('guest_room_info_code', $guestRoomInfo['attr']['Code'])->first()["guest_room_info_name"];
                 array_push($roomTypes, array($guestRoomName => isset($guestRoomInfo['attr']['Quantity']) ? $guestRoomInfo['attr']['Quantity'] : '?'));
             }
         }
@@ -245,7 +245,7 @@ class HotelDescriptionTransformer extends TransformerAbstract
             !isset($policies[0]) ? $policies = [$policies] : null;
             foreach ($policies as $policy) {
                 if (isset($policy['GuaranteePaymentPolicy']['GuaranteePayment']['attr']['PaymentCode'])) {
-                    $paymentName = PaymentType::where('payment_code', $policy['GuaranteePaymentPolicy']['GuaranteePayment']['attr']['PaymentCode'])->first()["payment_name"];
+                    $paymentName = PaymentType::connection(env('API_CONNECTION_DRIVER'))->where('payment_code', $policy['GuaranteePaymentPolicy']['GuaranteePayment']['attr']['PaymentCode'])->first()["payment_name"];
                     if ($policy['GuaranteePaymentPolicy']['GuaranteePayment']['attr']['PaymentCode'] == '5') {
                         $acceptedPayment = $acceptedPayment + array($paymentName => array());
                         $payments = $policy['GuaranteePaymentPolicy']['GuaranteePayment']['AcceptedPayments']['AcceptedPayment'];

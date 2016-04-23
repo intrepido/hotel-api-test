@@ -14,7 +14,7 @@ class CreateRoomViewsTable extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(database_path().'/scripts/room_views.sql'));
+        DB::connection(env('API_CONNECTION_DRIVER'))->unprepared(file_get_contents(database_path().'/scripts/room_views.sql'));
     }
 
     /**
@@ -24,6 +24,6 @@ class CreateRoomViewsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('room_views');
+        Schema::connection(env('API_CONNECTION_DRIVER'))->drop('room_views');
     }
 }

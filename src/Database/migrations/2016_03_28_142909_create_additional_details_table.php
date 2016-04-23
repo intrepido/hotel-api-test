@@ -14,7 +14,7 @@ class CreateAdditionalDetailsTable extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(database_path().'/scripts/additional_details.sql'));
+        DB::connection(env('API_CONNECTION_DRIVER'))->unprepared(file_get_contents(database_path().'/scripts/additional_details.sql'));
     }
 
     /**
@@ -24,6 +24,6 @@ class CreateAdditionalDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('additional_details');
+        Schema::connection(env('API_CONNECTION_DRIVER'))->drop('additional_details');
     }
 }

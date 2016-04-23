@@ -14,7 +14,7 @@ class CreateTransportationsTable extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(database_path().'/scripts/transportations.sql'));
+        DB::connection(env('API_CONNECTION_DRIVER'))->unprepared(file_get_contents(database_path().'/scripts/transportations.sql'));
     }
 
     /**
@@ -24,6 +24,6 @@ class CreateTransportationsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('transportations');
+        Schema::connection(env('API_CONNECTION_DRIVER'))->drop('transportations');
     }
 }

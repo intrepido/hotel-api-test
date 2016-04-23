@@ -14,7 +14,7 @@ class CreatePhoneTechTypesTable extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(database_path().'/scripts/phone_tech_types.sql'));
+        DB::connection(env('API_CONNECTION_DRIVER'))->unprepared(file_get_contents(database_path().'/scripts/phone_tech_types.sql'));
     }
 
     /**
@@ -24,6 +24,6 @@ class CreatePhoneTechTypesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('phone_tech_types');
+        Schema::connection(env('API_CONNECTION_DRIVER'))->drop('phone_tech_types');
     }
 }

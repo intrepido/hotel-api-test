@@ -14,7 +14,7 @@ class CreateRoomAmenitiesTable extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(database_path().'/scripts/room_amenities.sql'));
+        DB::connection(env('API_CONNECTION_DRIVER'))->unprepared(file_get_contents(database_path().'/scripts/room_amenities.sql'));
     }
 
     /**
@@ -24,6 +24,6 @@ class CreateRoomAmenitiesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('room_amenities');
+        Schema::connection(env('API_CONNECTION_DRIVER'))->drop('room_amenities');
     }
 }

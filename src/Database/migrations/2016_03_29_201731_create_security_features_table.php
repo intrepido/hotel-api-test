@@ -14,7 +14,7 @@ class CreateSecurityFeaturesTable extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(database_path().'/scripts/security_features.sql'));
+        DB::connection(env('API_CONNECTION_DRIVER'))->unprepared(file_get_contents(database_path().'/scripts/security_features.sql'));
     }
 
     /**
@@ -24,6 +24,6 @@ class CreateSecurityFeaturesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('security_features');
+        Schema::connection(env('API_CONNECTION_DRIVER'))->drop('security_features');
     }
 }

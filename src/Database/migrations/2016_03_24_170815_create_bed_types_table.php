@@ -14,7 +14,7 @@ class CreateBedTypesTable extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(database_path().'/scripts/bed_types.sql'));
+        DB::connection(env('API_CONNECTION_DRIVER'))->unprepared(file_get_contents(database_path().'/scripts/bed_types.sql'));
     }
 
     /**
@@ -24,6 +24,6 @@ class CreateBedTypesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('bed_types');
+        Schema::connection(env('API_CONNECTION_DRIVER'))->drop('bed_types');
     }
 }

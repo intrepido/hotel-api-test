@@ -14,7 +14,7 @@ class CreateRoomCategoriesTable extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(database_path().'/scripts/room_categories.sql'));
+        DB::connection(env('API_CONNECTION_DRIVER'))->unprepared(file_get_contents(database_path().'/scripts/room_categories.sql'));
     }
 
     /**
@@ -24,6 +24,6 @@ class CreateRoomCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('room_categories');
+        Schema::connection(env('API_CONNECTION_DRIVER'))->drop('room_categories');
     }
 }

@@ -14,7 +14,7 @@ class CreateAmenitiesTable extends Migration
      */
     public function up()
     {
-        DB::unprepared(file_get_contents(database_path().'/scripts/amenities.sql'));
+        DB::connection(env('API_CONNECTION_DRIVER'))->unprepared(file_get_contents(database_path().'/scripts/amenities.sql'));
     }
 
     /**
@@ -24,6 +24,6 @@ class CreateAmenitiesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('amenities');
+        Schema::connection(env('API_CONNECTION_DRIVER'))->drop('amenities');
     }
 }
