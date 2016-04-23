@@ -25,7 +25,7 @@ Install via composer running in your terminal the command.
 composer require foresttravel/hotel-api --prefer-source
 ```
 
-Once this has finished, you will need to add the service provider to the providers array in your ```app.php``` config as follows:
+Once this has finished, you will need to add the service provider to the ```providers``` array in your ```app.php``` config as follows:
 
 
 ``` 'HotelAPI\Providers\HotelApiServiceProvider::class' ```
