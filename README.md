@@ -8,6 +8,17 @@ To install this package you will need:
 * Laravel 5.1
 * PHP 5.4 +
  
+Add to your ```composer.json``` file the repository directly:
+
+```
+"repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/foresttravel/hotel-api"
+        }
+ ]
+```
+
 Install via composer running in your terminal the command.
 
 ```
