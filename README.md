@@ -5,8 +5,8 @@ A PHP module to connect and request hotel services from Amadeus Client
 
 To install this package you will need:
 
-* Laravel 5.1
-* PHP 5.4 +
+* Laravel 5.2
+* PHP 5.5.9 +
  
 Add to your ```composer.json``` file the repository directly:
 
