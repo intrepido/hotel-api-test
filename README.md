@@ -3,20 +3,16 @@ A PHP module to connect and request hotel services from Amadeus Client
 
 ##Installation
 
-
 To install this package you will need:
 
-Laravel 5
-PHP 5.4 +
-Install via composer - edit your ```composer.json``` to require the package.
+* Laravel 5.1
+* PHP 5.4 +
+ 
+Install via composer running in your terminal the command.
 
 ```
-"require": {
-    "foresttravel/hotel-api": "0.0.2"
-}
+composer require foresttravel/hotel-api
 ```
-
-Then run ```composer update``` in your terminal to pull it in.
 
 Once this has finished, you will need to add the service provider to the providers array in your ```app.php``` config as follows:
 
@@ -75,8 +71,20 @@ RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
 ```
 
 ###Database
-This package has some codifiers tables that it need for properly work. You need to specify with database you want to use for the migrations. You may specify the driver with this env variable in you ```.env``` file:
+This package has some codifiers tables that it need for properly work. You need to specify with database driver you want to use for the migrations. You may specify the driver with this env variable in you ```.env``` file:
 
 ```
 API_CONNECTION_DRIVER='*****'
+```
+Then you can make the migration:
+
+```
+php artisan migrate 
+```
+
+###Updates
+To keep updated this package you can use this command:
+
+```
+composer update foresttravel/hotel-api --lock
 ```
