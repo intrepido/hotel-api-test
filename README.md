@@ -15,9 +15,11 @@ Install via composer - edit your ```composer.json``` to require the package.
     "foresttravel/hotel-api": "0.0.2"
 }
 ```
+
 Then run ```composer update``` in your terminal to pull it in.
 
 Once this has finished, you will need to add the service provider to the providers array in your ```app.php``` config as follows:
+
 
 ``` 'HotelAPI\Providers\HotelApiServiceProvider::class' ```
 
@@ -36,3 +38,34 @@ protected $routeMiddleware = [
 ]; 
 
 ```
+Then in the ``` app/Http/route.php ``` you can use it like this:
+
+``` 
+$api->group(['middleware' => 'token-amadeus'], function ($api) {
+        $api->post('hotel-details', 'API\V1\HotelController@hotelDetails');
+        ...
+});
+``` 
+
+When the user make the first request he will be logged in the Amadeus client and he received a token, then the next step would be to make the subsequent requests, with this token.
+
+To make authenticated requests via http you will need to set an authorization header as follows:
+
+```
+Authorization: Bearer {yourtokenhere}
+```
+
+Note to Apache users
+
+Apache seems to discard the Authorization header if it is not a base64 encoded user/pass combo. So to fix this you can add the following to your apache config
+
+```
+RewriteEngine On
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+```
+
+###Database
+This package has some codifiers tables that it need for properly work. You need to specify with database you want to use for the migrations. You may specify the driver with this env variable in you ```.env``` file:
+
+API_CONNECTION_DRIVER='my_sql'
