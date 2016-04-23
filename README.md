@@ -28,6 +28,15 @@ Then run in your terminal:
 
 ``` php artisan vendor:publish --provider="HotelAPI\Providers\HotelApiServiceProvider" ```
 
+###Connection
+To make succefull connection you need to specify this env variables in you ```.env``` file: 
+
+```
+API_ENDPOINT_AMADEUS='*******'
+API_USERNAME_AMADEUS='*******'
+API_PASSWORD_AMADEUS='*******'
+```
+
 ###Authentication
 To use the middleware you will have to register them in ``` app/Http/Kernel.php ``` under the ``` $routeMiddleware ``` property:
 
@@ -55,7 +64,7 @@ To make authenticated requests via http you will need to set an authorization he
 Authorization: Bearer {yourtokenhere}
 ```
 
-Note to Apache users
+*Note to Apache users*
 
 Apache seems to discard the Authorization header if it is not a base64 encoded user/pass combo. So to fix this you can add the following to your apache config
 
@@ -68,4 +77,6 @@ RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
 ###Database
 This package has some codifiers tables that it need for properly work. You need to specify with database you want to use for the migrations. You may specify the driver with this env variable in you ```.env``` file:
 
-API_CONNECTION_DRIVER='my_sql'
+```
+API_CONNECTION_DRIVER='*****'
+```
