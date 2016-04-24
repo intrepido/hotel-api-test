@@ -1,4 +1,4 @@
-# Hotel Api MAACA
+# Hotel Api aca
 A PHP module to connect and request hotel services from Amadeus Client
 
 ##Installation
