@@ -97,5 +97,5 @@ php artisan migrate
 To keep updated this package you can use this command:
 
 ```
-composer update foresttravel/hotel-api --lock
+composer update foresttravel/hotel-api
 ```
