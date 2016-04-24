@@ -1,4 +1,4 @@
-# Hotel Api
+# Hotel Api CACA
 A PHP module to connect and request hotel services from Amadeus Client
 
 ##Installation
