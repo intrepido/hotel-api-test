@@ -1,4 +1,4 @@
-# Hotel Api FIDEL
+# Hotel Api
 A PHP module to connect and request hotel services from Amadeus Client
 
 ##Installation
