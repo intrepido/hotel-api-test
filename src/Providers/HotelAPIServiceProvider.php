@@ -24,10 +24,9 @@ class HotelApiServiceProvider extends ServiceProvider
             __DIR__.'/../Config/config.php' => config_path('hotel.php'),
         ], 'config');
 
-
-
         $this->publishes([
-            __DIR__.'/../Database/migrations/' => database_path('migrations')
+            __DIR__.'/../Database/migrations/' => database_path('migrations'),
+            __DIR__.'/../Database/scripts/' => database_path('scripts')
         ], 'migrations');
     }
 
@@ -39,7 +38,6 @@ class HotelApiServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'fidel');
     }
 
 }
