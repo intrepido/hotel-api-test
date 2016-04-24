@@ -1,4 +1,4 @@
-# Hotel Api aca
+# Hotel Api DEBE ESTAR BIEN AHORA
 A PHP module to connect and request hotel services from Amadeus Client
 
 ##Installation
