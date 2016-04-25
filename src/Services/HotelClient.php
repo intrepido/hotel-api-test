@@ -13,7 +13,7 @@ use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\ArraySerializer;
 
 
-class HotelManager
+class HotelClient
 {
     public function __construct(Request $request, Manager $fractalManager){
         $this->client = new \GuzzleHttp\Client(['headers' => ['Authorization' => $request->header('Authorization')]]);
