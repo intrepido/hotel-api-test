@@ -14,8 +14,9 @@ use League\Fractal\Serializer\ArraySerializer;
 
 class HotelClient
 {
-    public function __construct(Request $request, Manager $fractalManager){
+    public function __construct(Request $request){
         $this->client = new \GuzzleHttp\Client(['headers' => ['Authorization' => $request->header('Authorization')]]);
+        $fractalManager = new Manager();
         $fractalManager->setSerializer(new ArraySerializer());
         $this->fractalManager = $fractalManager;
     }
