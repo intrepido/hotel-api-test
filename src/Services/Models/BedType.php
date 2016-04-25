@@ -15,5 +15,10 @@ class BedType extends Model
     protected $fillable = [
         'bed_type', 'code',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

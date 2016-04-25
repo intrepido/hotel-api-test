@@ -15,5 +15,10 @@ class LocationCategory extends Model
     protected $fillable = [
         'location_category_code', 'location_category_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

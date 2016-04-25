@@ -15,5 +15,10 @@ class GuestRoomInfo extends Model
     protected $fillable = [
         'guest_room_info_code', 'guest_room_info_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

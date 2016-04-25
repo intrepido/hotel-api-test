@@ -15,5 +15,10 @@ class Country extends Model
     protected $fillable = [
         'country_code', 'country_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

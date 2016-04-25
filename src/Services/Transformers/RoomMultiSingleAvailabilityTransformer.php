@@ -23,9 +23,9 @@ class RoomMultiSingleAvailabilityTransformer extends TransformerAbstract
             $array = str_split($multiSingleAvailabilityItem['RoomTypes']['RoomType']['attr']['RoomType']);
             foreach ($array as $key => $value) {
                 if($value != '*'){
-                    $key == 0 ?  $roomCategory = RoomCategory::connection(env('API_CONNECTION_DRIVER'))->where('code', $value)->first()["room_category"] : null;
+                    $key == 0 ?  $roomCategory = RoomCategory::where('code', $value)->first()["room_category"] : null;
                     $key == 1 ?  $numBeds = (int)$value : null;
-                    $key == 2 ?  $bedType = BedType::connection(env('API_CONNECTION_DRIVER'))->where('code', $value)->first()["bed_type"] : null;
+                    $key == 2 ?  $bedType = BedType::where('code', $value)->first()["bed_type"] : null;
                 }
             }
         }
@@ -81,11 +81,11 @@ class RoomMultiSingleAvailabilityTransformer extends TransformerAbstract
             !isset($roomFeatureTemp[0]) ? $roomFeatureTemp = [$roomFeatureTemp] : null;
             foreach ($roomFeatureTemp as $key => $feature) {
                 if(isset($feature['attr']['RoomAmenity'])){
-                    $roomAmenityName = RoomAmenity::connection(env('API_CONNECTION_DRIVER'))->where('room_amenity_code', (int)$feature['attr']['RoomAmenity'])->first()["room_amenity_name"];
+                    $roomAmenityName = RoomAmenity::where('room_amenity_code', (int)$feature['attr']['RoomAmenity'])->first()["room_amenity_name"];
                     !in_array($roomAmenityName, $roomAmenities) ? array_push($roomAmenities, $roomAmenityName) : null;
                 }
                 if(isset($feature['attr']['RoomViewCode'])){
-                    $roomViewName = RoomView::connection(env('API_CONNECTION_DRIVER'))->where('room_view_code', (int)$feature['attr']['RoomViewCode'])->first()["room_view_name"];
+                    $roomViewName = RoomView::where('room_view_code', (int)$feature['attr']['RoomViewCode'])->first()["room_view_name"];
                     !in_array($roomViewName, $roomViews) ? array_push($roomViews, $roomViewName) : null;
                 }
             }
@@ -252,7 +252,7 @@ class RoomMultiSingleAvailabilityTransformer extends TransformerAbstract
                     $meal['attr']['Breakfast'] == '1' ? $breakfast = true : null;
                 }
                 if(isset($meal['attr']['MealPlanCodes'])){
-                    array_push($mealsPlan, MealPlan::connection(env('API_CONNECTION_DRIVER'))->where('meal_plan_code', $meal['attr']['MealPlanCodes'])->first()['meal_plan_name']);
+                    array_push($mealsPlan, MealPlan::where('meal_plan_code', $meal['attr']['MealPlanCodes'])->first()['meal_plan_name']);
                 }
             }
             $mealsIncluded = array('breakfast_included' => $breakfast, 'meal_plans' => $mealsPlan);

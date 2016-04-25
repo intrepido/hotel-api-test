@@ -15,5 +15,10 @@ class Amenity extends Model
     protected $fillable = [
         'amenity_code', 'amenity_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

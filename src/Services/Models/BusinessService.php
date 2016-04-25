@@ -15,5 +15,10 @@ class BusinessService extends Model
     protected $fillable = [
         'service_code', 'service_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

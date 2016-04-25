@@ -15,5 +15,10 @@ class MeetingRoom extends Model
     protected $fillable = [
         'meeting_room_code', 'meeting_room_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

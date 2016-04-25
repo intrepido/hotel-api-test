@@ -15,5 +15,10 @@ class RoomAmenity extends Model
     protected $fillable = [
         'room_amenity_code', 'room_amenity_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

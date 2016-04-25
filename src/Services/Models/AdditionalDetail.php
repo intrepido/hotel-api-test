@@ -15,5 +15,10 @@ class AdditionalDetail extends Model
     protected $fillable = [
         'additional_detail_code', 'additional_detail_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

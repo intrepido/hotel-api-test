@@ -15,5 +15,10 @@ class SegmentCategory extends Model
     protected $fillable = [
         'segment_category_code', 'segment_category_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

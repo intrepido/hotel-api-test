@@ -15,5 +15,10 @@ class PhoneTechType extends Model
     protected $fillable = [
         'phone_tech_code', 'phone_tech_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

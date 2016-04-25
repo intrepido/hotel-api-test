@@ -15,5 +15,10 @@ class Chain extends Model
     protected $fillable = [
         'chain_code', 'chain_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

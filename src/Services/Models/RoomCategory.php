@@ -15,5 +15,10 @@ class RoomCategory extends Model
     protected $fillable = [
         'room_category', 'code',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

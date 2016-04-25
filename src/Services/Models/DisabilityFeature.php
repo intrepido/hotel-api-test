@@ -15,5 +15,10 @@ class DisabilityFeature extends Model
     protected $fillable = [
         'disability_feature_code', 'disability_feature_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

@@ -15,5 +15,10 @@ class MealPlan extends Model
     protected $fillable = [
         'meal_plan_code', 'meal_plan_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

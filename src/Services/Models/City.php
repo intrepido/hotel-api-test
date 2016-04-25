@@ -15,5 +15,10 @@ class City extends Model
     protected $fillable = [
         'city', 'country', 'city_code',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

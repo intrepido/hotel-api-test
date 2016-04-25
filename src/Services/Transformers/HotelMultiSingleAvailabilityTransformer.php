@@ -29,7 +29,7 @@ class HotelMultiSingleAvailabilityTransformer extends TransformerAbstract
             $address = array('address_line' => ucwords(strtolower($addressLineComplete)),
                              'city_name' => ucwords(strtolower($multiSingleAvailabilityItem['BasicPropertyInfo']['Address']['CityName']['value'])),
                              'postal_code' => isset($multiSingleAvailabilityItem['BasicPropertyInfo']['Address']['PostalCode']['value']) ? $multiSingleAvailabilityItem['BasicPropertyInfo']['Address']['PostalCode']['value']: '',
-                             'country_name' => Country::connection(env('API_CONNECTION_DRIVER'))->where('country_code', $multiSingleAvailabilityItem['BasicPropertyInfo']['Address']['CountryName']['attr']['Code'])->first()["country_name"]);
+                             'country_name' => Country::where('country_code', $multiSingleAvailabilityItem['BasicPropertyInfo']['Address']['CountryName']['attr']['Code'])->first()["country_name"]);
         }
 
         //Contact Number
@@ -38,7 +38,7 @@ class HotelMultiSingleAvailabilityTransformer extends TransformerAbstract
             $contactNumbersTemp = $multiSingleAvailabilityItem['BasicPropertyInfo']['ContactNumbers']['ContactNumber'];
             !isset($contactNumbersTemp[0]) ? $contactNumbersTemp = [$contactNumbersTemp] : null;
             foreach ($contactNumbersTemp as $key => $contactNumber) {
-                $contactNumbers = $contactNumbers + array(PhoneTechType::connection(env('API_CONNECTION_DRIVER'))->where('phone_tech_code', $contactNumber['attr']['PhoneTechType'])->first()["phone_tech_name"] => str_replace('+','',str_replace(' ','-',str_replace('/','-',trim($contactNumber['attr']['PhoneNumber'])))));
+                $contactNumbers = $contactNumbers + array(PhoneTechType::where('phone_tech_code', $contactNumber['attr']['PhoneTechType'])->first()["phone_tech_name"] => str_replace('+','',str_replace(' ','-',str_replace('/','-',trim($contactNumber['attr']['PhoneNumber'])))));
             }
         }
 
@@ -119,7 +119,7 @@ class HotelMultiSingleAvailabilityTransformer extends TransformerAbstract
             $amenitiesTemp = $multiSingleAvailabilityItem['BasicPropertyInfo']['HotelAmenity'];
             !isset($amenitiesTemp[0]) ? $amenitiesTemp = [$amenitiesTemp] : null;
             foreach ($amenitiesTemp as $key => $amenity) {
-                $amenityName = Amenity::connection(env('API_CONNECTION_DRIVER'))->where('amenity_code', $amenity['attr']['Code'])->first()["amenity_name"];
+                $amenityName = Amenity::where('amenity_code', $amenity['attr']['Code'])->first()["amenity_name"];
                 !in_array($amenityName, $amenities) ? array_push($amenities, $amenityName) : null;
             }
         }

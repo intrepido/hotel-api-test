@@ -15,5 +15,10 @@ class RoomView extends Model
     protected $fillable = [
         'room_view_code', 'room_view_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

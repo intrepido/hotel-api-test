@@ -15,5 +15,10 @@ class RecreationService extends Model
     protected $fillable = [
         'recreation_service_code', 'recreation_service_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

@@ -15,5 +15,10 @@ class SecurityFeature extends Model
     protected $fillable = [
         'security_feature_code', 'security_feature_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }

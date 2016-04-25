@@ -15,5 +15,10 @@ class PaymentType extends Model
     protected $fillable = [
         'payment_code', 'payment_name',
     ];
+    protected $connection = 'mysql';
+
+    function __construct() {
+        $this->connection = env('API_CONNECTION_DRIVER');
+    }
 
 }
