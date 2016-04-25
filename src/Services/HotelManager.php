@@ -1,6 +1,6 @@
 <?php
 
-namespace HotelAPI\Services\Controllers;
+namespace HotelAPI\Services;
 
 use HotelAPI\Services\Transformers\HotelDescriptionTransformer;
 use HotelAPI\Services\Transformers\HotelMultiSingleAvailabilityTransformer;
@@ -13,7 +13,7 @@ use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\ArraySerializer;
 
 
-class HotelController extends Controller
+class HotelManager
 {
     public function __construct(Request $request, Manager $fractalManager){
         $this->client = new \GuzzleHttp\Client(['headers' => ['Authorization' => $request->header('Authorization')]]);
