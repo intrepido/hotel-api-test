@@ -6,7 +6,6 @@ use HotelAPI\Services\Transformers\HotelDescriptionTransformer;
 use HotelAPI\Services\Transformers\HotelMultiSingleAvailabilityTransformer;
 use HotelAPI\Services\Transformers\RoomMultiSingleAvailabilityTransformer;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
